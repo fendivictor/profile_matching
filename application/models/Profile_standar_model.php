@@ -6,7 +6,11 @@ class Profile_standar_model extends CI_Model {
 
 	public function get()
 	{
-		$query = $this->db->get($this->_table);
+		$this->db->select('a.*, b.kriteria, c.sub_kriteria, c.nilai_profile', FALSE);
+		$this->db->join('kriteria b', 'b.id = a.id_kriteria', 'inner');
+		$this->db->join('sub_kriteria c', 'c.id = a.id_sub_kriteria', 'inner');
+
+		$query = $this->db->get("$this->_table a");
 		return $query->result();
 	}
 
@@ -45,6 +49,14 @@ class Profile_standar_model extends CI_Model {
 		}
 
 		return $this->db->delete($this->_table, ['id' => $id]);
+	}
+
+	public function findNilaiProfilStandar($id_kriteria)
+	{
+		$this->db->select('b.nilai_profile', FALSE);
+		$this->db->where(['a.id_kriteria' => $id_kriteria]);
+		$this->db->join('sub_kriteria b', 'a.id_sub_kriteria = b.id', 'inner');
+		return $this->db->get("$this->_table a")->row();
 	}
 }
 

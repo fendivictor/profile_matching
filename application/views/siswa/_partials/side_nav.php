@@ -28,66 +28,10 @@
 			<ul class="nav nav-pills nav-sidebar flex-column text-sm nav-flat nav-compact" data-widget="treeview" role="menu" data-accordion="false">
 				<!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
 				<li class="nav-item">
-					<a href="<?= base_url('admin') ?>" class="nav-link">
+					<a href="<?= base_url('admin/SiswaDashboard') ?>" class="nav-link">
 						<i class="nav-icon fas fa-tachometer-alt"></i>
 						<p>
 							Dashboard
-						</p>
-					</a>
-				</li>
-				<li class="nav-item">
-					<a href="<?= base_url('admin/Jenis_kriteria') ?>" class="nav-link">
-						<i class="nav-icon fas fa-folder"></i>
-						<p>
-							Jenis Kriteria
-						</p>
-					</a>
-				</li>
-				<li class="nav-item">
-					<a href="<?= base_url('admin/Kriteria') ?>" class="nav-link">
-						<i class="nav-icon fas fa-folder"></i>
-						<p>
-							Kriteria
-						</p>
-					</a>
-				</li>
-				<li class="nav-item">
-					<a href="<?= base_url('admin/profile') ?>" class="nav-link">
-						<i class="nav-icon fas fa-folder"></i>
-						<p>
-							Profile Standar
-						</p>
-					</a>
-				</li>
-				<li class="nav-item">
-					<a href="<?= base_url('admin/gap') ?>" class="nav-link">
-						<i class="nav-icon fas fa-folder"></i>
-						<p>
-							Gap
-						</p>
-					</a>
-				</li>
-				<li class="nav-item">
-					<a href="<?= base_url('admin/Siswa') ?>" class="nav-link">
-						<i class="nav-icon fas fa-folder"></i>
-						<p>
-							Siswa
-						</p>
-					</a>
-				</li>
-				<li class="nav-item">
-					<a href="<?= base_url('admin/penilaian') ?>" class="nav-link">
-						<i class="nav-icon fas fa-folder"></i>
-						<p>
-							Penilaian
-						</p>
-					</a>
-				</li>
-				<li class="nav-item">
-					<a href="<?= base_url('admin/perhitungan') ?>" class="nav-link">
-						<i class="nav-icon fas fa-folder"></i>
-						<p>
-							Perhitungan
 						</p>
 					</a>
 				</li>

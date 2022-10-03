@@ -81,4 +81,22 @@ class Siswa extends CI_Controller
 			redirect('admin/siswa');
 		}
 	}
+
+	public function verifikasi($id = null)
+	{
+		if (!$id) {
+			show_404();
+		}
+
+		$siswa = [
+			'id' => $id,
+			'verifikasi' => 1
+		];
+
+		$updated = $this->siswa_model->update($siswa);
+		if ($updated) {
+			$this->session->set_flashdata('message', 'Verifikasi Berhasil');
+			redirect('admin/siswa');
+		}
+	}
 }

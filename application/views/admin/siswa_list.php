@@ -42,6 +42,10 @@
 									<tr>
 										<th>No</th>
 										<th>Nama</th>
+										<th>Email</th>
+										<th>Telepon</th>
+										<th>Alamat</th>
+										<th>Status</th>
 										<th style="width: 25%;" class="txt-center">Action</th>
 									</tr>
 								</thead>
@@ -56,6 +60,18 @@
 											<td>
 												<div><?= $s->nama ?></div>
 											</td>
+											<td>
+												<div><?= $s->email ?></div>
+											</td>
+											<td>
+												<div><?= $s->telepon ?></div>
+											</td>
+											<td>
+												<div><?= $s->alamat ?></div>
+											</td>
+											<td>
+												<div><?= $s->verifikasi === '1' ? 'Terverifikasi' : 'Belum diverifikasi' ?></div>
+											</td>
 											
 											<td>
 												<div class="action">
@@ -65,6 +81,14 @@
 														class="btn btn-sm btn-danger" 
 														role="button"
 														onclick="deleteConfirm(this)">Delete</a>
+
+													<?php if ($s->verifikasi == 0) { ?>
+													<a href="#" 
+														data-verif-url="<?= site_url('admin/siswa/verifikasi/'.$s->id) ?>" 
+														class="btn btn-sm btn-info" 
+														role="button"
+														onclick="verifikasi(this)">Verifikasi</a>
+													<?php } ?>
 												</div>
 											</td>
 										</tr>
@@ -97,6 +121,22 @@
 			}).then(dialog => {
 				if(dialog.isConfirmed){
 					window.location.assign(event.dataset.deleteUrl);
+				}
+			});
+		}
+
+		function verifikasi(event){
+			Swal.fire({
+				title: 'Confirmation!',
+				text: 'Apakah yakin akan memverifikasi user ini?',
+				icon: 'warning',
+				showCancelButton: true,
+				cancelButtonText: 'No',
+				confirmButtonText: 'Yes',
+				confirmButtonColor: 'red'
+			}).then(dialog => {
+				if(dialog.isConfirmed){
+					window.location.assign(event.dataset.verifUrl);
 				}
 			});
 		}

@@ -27,7 +27,7 @@ CREATE TABLE `gap` (
 /*Data for the table `gap` */
 
 insert  into `gap`(`id`,`gap`,`bobot`,`keterangan`) values 
-(1,0,5,'Tidak Ada Selisih (kompetensi sesuai dengna yang dibutuhkan)'),
+(1,0,5,'Tidak Ada Selisih (kompetensi sesuai dengan yang dibutuhkan)'),
 (2,1,4.5,'Kompetensi individu kelebihan 1 tingkat/level'),
 (3,-1,4,'Kompetensi individu kekurangan 1 tingkat/level'),
 (4,2,3.5,'Kompetensi individu kelebihan 2 tingkat/level'),
@@ -164,18 +164,25 @@ DROP TABLE IF EXISTS `siswa`;
 CREATE TABLE `siswa` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nama` varchar(60) DEFAULT '',
+  `email` varchar(60) DEFAULT '',
+  `password` varchar(60) DEFAULT '',
+  `telepon` varchar(20) DEFAULT '',
+  `alamat` text DEFAULT NULL,
+  `verifikasi` tinyint(1) DEFAULT 0,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=632341840 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6329 DEFAULT CHARSET=latin1;
 
 /*Data for the table `siswa` */
 
-insert  into `siswa`(`id`,`nama`) values 
-(2,'Kiranah'),
-(4,'savra'),
-(5,'Uus Wati'),
-(6,'savra'),
-(7,'muhammad savra'),
-(6326,'Budi');
+insert  into `siswa`(`id`,`nama`,`email`,`password`,`telepon`,`alamat`,`verifikasi`) values 
+(2,'Kiranah','','','',NULL,1),
+(4,'savra','','','',NULL,1),
+(5,'Uus Wati','','','',NULL,1),
+(6,'savra','','','',NULL,1),
+(7,'muhammad savra','','','',NULL,1),
+(9,'Victor','admin@gmail.com','81dc9bdb52d04dc20036dbd8313ed055','08156647203','Pedawang RT3 RW3 No.560',0),
+(6326,'Budi','','','',NULL,1),
+(6328,'Victor','fendivictor@gmail.com','9996535e07258a7bbfd8b132435c5962','08156647203','Pedawang RT3 RW3 No.560',1);
 
 /*Table structure for table `sub_kriteria` */
 

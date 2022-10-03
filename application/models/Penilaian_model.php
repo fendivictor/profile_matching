@@ -85,7 +85,7 @@ class Penilaian_model extends CI_Model
 
 	public function findNilaiRataRata($id_siswa, $nilai_factor)
 	{
-		$this->db->select('a.id_siswa, a.nilai_factor, AVG(a.nilai_gap) AS avg_gap');
+		$this->db->select('a.id_siswa, a.nilai_factor, AVG(a.bobot) AS avg_gap');
 		$this->db->from("$this->_table a");
 		$this->db->where([
 			'a.id_siswa' => $id_siswa,

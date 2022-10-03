@@ -41,6 +41,14 @@
 							Login
 						</p>
 					</a>
+				</li>
+				<li class="nav-item">
+					<a href="<?= base_url('Auth/daftar'); ?>" class="nav-link">
+						<i class="nav-icon fas fa-user"></i>
+						<p>
+							Daftar
+						</p>
+					</a>
 				</li>                    
 			</ul>
 		</nav>
