@@ -40,17 +40,25 @@
 							<table class="table">
 								<thead>
 									<tr>
-										<th>No</th>
-										<th>Nama</th>
-										<th>Kriteria</th>
-										<th>Nilai Siswa</th>
-										<th style="width: 25%;" class="txt-center">Action</th>
+										<th rowspan="2" class="text-center align-middle">No</th>
+										<th rowspan="2" class="text-center align-middle">Nama</th>
+										<th colspan="<?= count($kriteria) ?>">Kriteria</th>
+										<th rowspan="2" style="width: 25%;" class="text-center align-middle">Action</th>
+									</tr>
+									<tr>
+										<?php 
+											if ($kriteria) {
+												foreach ($kriteria as $k) {
+													echo '<th>'.$k->kriteria.'</th>';
+												}
+											}
+										?>
 									</tr>
 								</thead>
 								<tbody>
 								<?php $sn = 1 ?>
 									
-										<?php foreach($penilaian as $s){ ?>
+										<?php foreach($siswa as $s){ ?>
 										<tr>
 											<td>
 												<div scope="row"><?= $sn ?></div>
@@ -58,16 +66,23 @@
 											<td>
 												<div><?= $s->nama ?></div>
 											</td>
-											<td>
-												<div><?= $s->kriteria ?></div>
-											</td>
-											<td>
-												<div><?= $s->nilai ?></div>
-											</td>
-											
-											<td>
+
+											<?php 
+
+												if ($kriteria) {
+													foreach ($kriteria as $k) {
+														$findNilai = $this->penilaian_model->findNilai($s->id, $k->id);
+														$nilai = isset($findNilai->nilai) ? $findNilai->nilai : 0;
+
+														echo '<td class="text-center"><div>'.$nilai.'</div></td>';
+													}
+												}
+
+											 ?>
+
+											<td class="text-center">
 												<div class="action">
-													<a href="<?= site_url('admin/penilaian/edit/'.$s->id_siswa) ?>" class="btn btn-sm btn-warning" role="button">Edit</a>
+													<a href="<?= site_url('admin/penilaian/edit/'.$s->id) ?>" class="btn btn-sm btn-warning" role="button">Edit</a>
 													<a href="#" 
 														data-delete-url="<?= site_url('admin/penilaian/delete/'.$s->id) ?>" 
 														class="btn btn-sm btn-danger" 

@@ -21,7 +21,7 @@ class Perhitungan extends CI_Controller {
 	{
 		$data['kriteria'] = $this->kriteria_model->get();
 		$data['penilaian'] = $this->penilaian_model->get();
-		$data['siswa'] = $this->siswa_model->get(['verifikasi' => 1]);
+		$data['siswa'] = $this->penilaian_model->get_siswa(['verifikasi' => 1]);
 		$data['jenis'] = $this->jenis_model->get();
 
 		$this->load->view('admin/perhitungan_list.php', $data);

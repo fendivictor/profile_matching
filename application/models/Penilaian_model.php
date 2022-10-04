@@ -23,6 +23,22 @@ class Penilaian_model extends CI_Model
 		return $query->result();
 	}
 
+	public function get_siswa($condition = [])
+	{
+		$this->db->select('DISTINCT c.id, c.nama', FALSE);
+		$this->db->from("$this->_table a");
+		$this->db->join('siswa c', 'c.id = a.id_siswa', 'inner');
+
+		if ($condition) {
+			$this->db->where($condition);
+		}
+
+		$this->db->order_by('c.nama asc');
+
+		$query = $this->db->get();
+		return $query->result();
+	}
+
 	public function count(){
 		return $this->db->count_all($this->_table);
 	}

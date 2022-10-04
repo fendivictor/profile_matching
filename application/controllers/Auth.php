@@ -73,7 +73,7 @@ class Auth extends CI_Controller
 			$password = $this->input->post('password', TRUE);
 			$repassword = $this->input->post('repassword', TRUE);
 
-			$this->form_validation->set_rules('nama', 'Nama Lengkap', 'required', ['required' => 'Masukkan Nama Lengkap']);
+			$this->form_validation->set_rules('nama', 'Nama Lengkap', 'required|is_unique[siswa.nama]', ['required' => 'Masukkan Nama Lengkap', 'is_unique' => 'Nama sudah terdaftar']);
 			$this->form_validation->set_rules('email', 'Email', 'required|valid_email|is_unique[siswa.email]', ['required' => 'Masukkan Email', 'valid_email' => 'Email tidak valid', 'is_unique' => 'Email sudah terdaftar']);
 			$this->form_validation->set_rules('password', 'Password', 'required', ['required' => 'Masukkan Password']);
 			$this->form_validation->set_rules('repassword', 'Ketik Ulang Password', 'required|matches[password]', ['required' => 'Ketik Ulang Password', 'matches' => 'Password tidak Cocok']);

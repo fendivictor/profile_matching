@@ -61,7 +61,7 @@
 								?>
 
 								<div>
-									<a href="<?= site_url('admin/Kriteria') ?>"><button type="button" class="btn btn-default">Batal</button></a>
+									<a href="<?= site_url('admin/penilaian') ?>"><button type="button" class="btn btn-default">Batal</button></a>
 									<button type="submit" name="simpan" class="btn btn-primary">Simpan</button>
 								</div>
 							</form>

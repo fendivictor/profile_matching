@@ -19,7 +19,8 @@ class Penilaian extends CI_Controller {
 
 	public function index()
 	{
-		$data['penilaian'] = $this->penilaian_model->get();
+		$data['siswa'] = $this->penilaian_model->get_siswa(['verifikasi' => 1]);
+		$data['kriteria'] = $this->kriteria_model->get();
 
 		$this->load->view('admin/penilaian_list.php', $data);
 	}
@@ -216,13 +217,13 @@ class Penilaian extends CI_Controller {
 		$this->load->view('admin/penilaian_edit_form.php', $data);
 	}
 
-	public function delete($id = null)
+	public function delete($id_siswa = null)
 	{
-		if (!$id) {
+		if (!$id_siswa) {
 			show_404();
 		}
 
-		$deleted = $this->penilaian_model->delete($id);
+		$deleted = $this->penilaian_model->deletePenilaianSiswa($id_siswa);
 		if ($deleted) {
 			$this->session->set_flashdata('message', 'Penilaian was deleted');
 			redirect('admin/penilaian');
