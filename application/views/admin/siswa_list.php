@@ -49,8 +49,8 @@
 										<th style="width: 25%;" class="txt-center">Action</th>
 									</tr>
 								</thead>
+								<tbody>
 								<?php $sn = 1 ?>
-									<tbody>
 									
 										<?php foreach($siswa as $s){ ?>
 										<tr>
@@ -93,10 +93,10 @@
 											</td>
 										</tr>
 										
-									</tbody>
 									<?php $sn++; ?>
 
 									<?php } ?>
+								</tbody>
 							</table>
 						</div>
 					</div>

@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Perhitungan extends CI_Controller {
+class Laporan extends CI_Controller {
 
 	public function __construct()
 	{
@@ -20,16 +20,31 @@ class Perhitungan extends CI_Controller {
 
 	public function index()
 	{
+		$tahun = $this->input->get('tahun', TRUE);
+		$kelas = $this->input->get('kelas', TRUE);
+
+		$condition = [
+			'verifikasi' => 1
+		];
+
+		if ($tahun != '') {
+			$condition['c.tahun_masuk'] = $tahun;
+		}
+
+		if ($kelas != '') {
+			$condition['c.kelas'] = $kelas;
+		}
+
 		$data['kriteria'] = $this->kriteria_model->get();
 		$data['penilaian'] = $this->penilaian_model->get();
-		$data['siswa'] = $this->penilaian_model->get_siswa(['verifikasi' => 1]);
+		$data['siswa'] = $this->penilaian_model->get_siswa($condition);
 		$data['jenis'] = $this->jenis_model->get();
 		$data['setting'] = $this->setting_model->find();
 
-		$this->load->view('admin/perhitungan_list.php', $data);
+		$this->load->view('admin/laporan.php', $data);
 	}
 
 }
 
-/* End of file Perhitungan.php */
-/* Location: ./application/controllers/Perhitungan.php */
+/* End of file Laporan.php */
+/* Location: ./application/controllers/Laporan.php */

@@ -25,11 +25,7 @@ class Siswa extends CI_Controller
 		if ($this->input->method() === 'post') {
 			// TODO: Lakukan validasi sebelum menyimpan ke model
 
-			// generate unique id and slug
-			$id = uniqid('', true);
-
 			$siswa = [
-				'id' => $id,
 				'nama' => $this->input->post('nama'),
 			];
 

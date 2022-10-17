@@ -12,7 +12,8 @@ class SiswaDashboard extends CI_Controller {
 			'subkriteria_model',
 			'gap_model',
 			'penilaian_model',
-			'jenis_model'
+			'jenis_model',
+			'setting_model'
 		]);
 		if(!$this->siswa_model->current_user()){
 			redirect('auth/login');
@@ -25,6 +26,7 @@ class SiswaDashboard extends CI_Controller {
 		$data['penilaian'] = $this->penilaian_model->get();
 		$data['siswa'] = $this->siswa_model->get(['verifikasi' => 1]);
 		$data['jenis'] = $this->jenis_model->get();
+		$data['setting'] = $this->setting_model->find();
 
 		$this->load->view('siswa/dashboard.php', $data);
 	}

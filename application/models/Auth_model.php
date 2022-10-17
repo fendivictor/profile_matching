@@ -5,6 +5,7 @@ class Auth_model extends CI_Model
 	private $_table = "user";
 	const SESSION_KEY = 'user_id';
 	const SESSION_NAME = 'username';
+	const SESSION_LEVEL = 'level';
 
 	public function rules()
 	{
@@ -46,7 +47,8 @@ class Auth_model extends CI_Model
 		// bikin session
 		$this->session->set_userdata([
 			self::SESSION_KEY => $user->id,
-			self::SESSION_NAME => $user->username
+			self::SESSION_NAME => $user->username,
+			self::SESSION_LEVEL => $user->id_level_user
 		]);
 
 		return $this->session->has_userdata(self::SESSION_KEY);

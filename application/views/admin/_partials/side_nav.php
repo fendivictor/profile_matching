@@ -35,6 +35,7 @@
 						</p>
 					</a>
 				</li>
+				<?php if ($this->session->userdata('level') == 1) { ?>
 				<li class="nav-item">
 					<a href="<?= base_url('admin/Jenis_kriteria') ?>" class="nav-link">
 						<i class="nav-icon fas fa-folder"></i>
@@ -68,6 +69,14 @@
 					</a>
 				</li>
 				<li class="nav-item">
+					<a href="<?= base_url('admin/setting') ?>" class="nav-link">
+						<i class="nav-icon fas fa-folder"></i>
+						<p>
+							Setting
+						</p>
+					</a>
+				</li>
+				<li class="nav-item">
 					<a href="<?= base_url('admin/Siswa') ?>" class="nav-link">
 						<i class="nav-icon fas fa-folder"></i>
 						<p>
@@ -88,6 +97,15 @@
 						<i class="nav-icon fas fa-folder"></i>
 						<p>
 							Perhitungan
+						</p>
+					</a>
+				</li>
+				<?php } ?>
+				<li class="nav-item">
+					<a href="<?= base_url('admin/laporan') ?>" class="nav-link">
+						<i class="nav-icon fas fa-folder"></i>
+						<p>
+							Laporan
 						</p>
 					</a>
 				</li>

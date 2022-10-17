@@ -32,22 +32,29 @@ class Auth extends CI_Controller
 		if($this->auth_model->login($username, $password)){
 			redirect('admin');
 		} else {
-			$isverifikasi = $this->siswa_model->get(['email' => $username, 'verifikasi' => 1]);
+		
+			$findUser = $this->siswa_model->get(['nis' => $username]);
+
+			if (! $findUser) {
+				$this->session->set_flashdata('message_login_error', 'User tidak ditemukan');
+				return $this->load->view('login_form');
+			}
+
+			$isverifikasi = $this->siswa_model->get(['nis' => $username, 'verifikasi' => 1]);
 
 			if (! $isverifikasi) {
-				if (!filter_var($username, FILTER_VALIDATE_EMAIL)) {
-					$this->session->set_flashdata('message_login_error', 'Login Gagal, pastikan username dan password benar!');
-				} else {
-					$this->session->set_flashdata('message_login_error', 'User belum diverifikasi!');
-				}
-			} else {
-				$siswa = $this->siswa_model->login($username, $password);
-				if ($siswa) {
-					redirect('admin/SiswaDashboard');
-				}
-
-				$this->session->set_flashdata('message_login_error', 'Login Gagal, pastikan username dan password benar!');
+				$this->session->set_flashdata('message_login_error', 'User belum diverifikasi!');
+				return $this->load->view('login_form');
 			}
+
+			$siswa = $this->siswa_model->login($username, $password);
+
+			if (! $siswa) {
+				$this->session->set_flashdata('message_login_error', 'Login Gagal, pastikan username dan password benar!');
+				return $this->load->view('login_form');
+			}
+
+			redirect('admin/SiswaDashboard');
 		}
 
 		$this->load->view('login_form');

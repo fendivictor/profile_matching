@@ -35,224 +35,38 @@
 							</h3>
 						</div>
 						<div class="card-body">
-							<h5>
-								Nilai Profil Standar
+							<h5 class="mb-3">
+								Hasil Penilaian
 							</h5>
-							<table class="table">
-								<tr>
-									<th></th>
-									<?php 
+							<?php 
+								$sortingArray = [];
+								if ($siswa) {
+									foreach ($siswa as $s => $val) {
+										$rangking = $this->penilaian_model->findRangking($val->id);
+										$sortingArray[$val->id] = $rangking;
+									}
+								}
 
-										if ($kriteria) {
-											foreach ($kriteria as $k) {
-												echo '<th class="text-center">'.$k->kriteria.'</th>';
-											}
+								arsort($sortingArray);
+
+								$isLulus = false;
+								$jumlah = 1;
+								if ($sortingArray) {
+									foreach ($sortingArray as $s => $v) {
+										if ($s == $this->session->userdata('nis')) {
+											$isLulus = true;
 										}
 
-									 ?>
-								</tr>
-								<tr>
-									<th>Nilai Profil Standar</th>
+										$jumlah++;
 
-									<?php 
-
-										if ($kriteria) {
-											foreach ($kriteria as $k) {
-												$findNilaiProfilStandar = $this->profile_standar_model->findNilaiProfilStandar($k->id);
-												$nilaiProfile = isset($findNilaiProfilStandar->nilai_profile) ? $findNilaiProfilStandar->nilai_profile : 0;
-
-												echo '<td class="text-center">'.$nilaiProfile.'</td>';
-											}
-										}
-
-									 ?>
-
-								</tr>
-							</table>
-
-							<h5 class="my-3">
-								Nilai Profil Alternatif
-							</h5>
-
-							<table class="table">
-								<tr>
-									<th>Nama Alternatif</th>
-									<?php 
-
-										if ($kriteria) {
-											foreach ($kriteria as $k) {
-												echo '<th class="text-center">'.$k->kriteria.'</th>';
-											}
-										}
-
-									 ?>
-								</tr>
-
-								<?php 
-
-									if ($siswa) {
-										foreach ($siswa as $s) {
-											echo '<tr>';
-											echo '<td>'.$s->nama.'</td>';
-
-											if ($kriteria) {
-												foreach ($kriteria as $k) {
-													$findNilai = $this->penilaian_model->findNilai($s->id, $k->id);
-													$nilai_profile = isset($findNilai->nilai_profile) ? $findNilai->nilai_profile : 0;
-
-													echo '<td class="text-center">'.$nilai_profile.'</td>';
-												}
-											}
-
-											echo '</tr>';
+										if ($jumlah > $setting->jumlah_lolos) {
+											break;
 										}
 									}
+								}
 
-								 ?>
-
-							</table>
-
-							<h5 class="my-3">
-								Gap
-							</h5>
-
-							<table class="table">
-								<tr>
-									<th>Nama Alternatif</th>
-									<?php 
-
-										if ($kriteria) {
-											foreach ($kriteria as $k) {
-												echo '<th class="text-center">'.$k->kriteria.'</th>';
-											}
-										}
-
-									 ?>
-								</tr>
-
-								<?php 
-
-									if ($siswa) {
-										foreach ($siswa as $s) {
-											echo '<tr>';
-											echo '<td>'.$s->nama.'</td>';
-
-											if ($kriteria) {
-												foreach ($kriteria as $k) {
-													$findNilai = $this->penilaian_model->findNilai($s->id, $k->id);
-													$gap = isset($findNilai->gap) ? $findNilai->gap : 0;
-
-													echo '<td class="text-center">'.$gap.'</td>';
-												}
-											}
-
-											echo '</tr>';
-										}
-									}
-
-								 ?>
-
-							</table>
-
-							<h5 class="my-3">
-								Nilai Gap (Bobot)
-							</h5>
-
-							<table class="table">
-								<tr>
-									<th>Nama Alternatif</th>
-									<?php 
-
-										if ($kriteria) {
-											foreach ($kriteria as $k) {
-												echo '<th class="text-center">'.$k->kriteria.'</th>';
-											}
-										}
-
-									 ?>
-									 <th class="text-center">NCF</th>
-									 <th class="text-center">NSF</th>
-									 <th class="text-center">Nilai</th>
-								</tr>
-
-								<?php 
-
-									if ($siswa) {
-										foreach ($siswa as $s) {
-											echo '<tr>';
-											echo '<td>'.$s->nama.'</td>';
-
-											if ($kriteria) {
-												foreach ($kriteria as $k) {
-													$findNilai = $this->penilaian_model->findNilai($s->id, $k->id);
-													$bobot = isset($findNilai->bobot) ? $findNilai->bobot : 0;
-
-													echo '<td class="text-center">'.$bobot.'</td>';
-												}
-											}
-
-											if ($jenis) {
-												foreach ($jenis as $j) {
-													$findRataRata = $this->penilaian_model->findNilaiRataRata($s->id, $j->nilai_factor);
-													$nilaiRataRata = isset($findRataRata->avg_gap) ? $findRataRata->avg_gap : 0;
-
-													echo '<td class="text-center">'.$nilaiRataRata.'</td>';
-												} 
-											}
-
-											$rangking = $this->penilaian_model->findRangking($s->id);
-
-											echo '<td class="text-center">'.$rangking.'</td>';
-
-											echo '</tr>';
-										}
-									}
-
-								 ?>
-
-								 <tr>
-								 	<th></th>
-								 	<?php 
-
-										if ($kriteria) {
-											foreach ($kriteria as $k) {
-												echo '<th class="text-center">'.$k->jenis.'</th>';
-											}
-										}
-
-									 ?>
-									 <th></th>
-									 <th></th>
-									 <th></th>
-								 </tr>
-							</table>
-							
-							<h5 class="my-3">
-								Rekomendasi
-							</h5>
-
-							<table class="table" id="tb-rekomendasi">
-								<thead>
-									<tr>
-										<th>Nama Alternatif</th>
-										<th class="text-center">Nilai</th>
-									</tr>
-								</thead>
-								<tbody>
-								<?php 
-									if ($siswa) {
-										foreach ($siswa as $s) {
-											$rangking = $this->penilaian_model->findRangking($s->id);
-
-											echo '<tr>';
-											echo '<td>'.$s->nama.'</td>';
-											echo '<td class="text-center">'.$rangking.'</td>';
-											echo '</tr>';
-										}
-									}
-								?>
-								</tbody>
-							</table>
+								echo ($isLulus) ? 'Selemat anda lulus' : 'Maaf, Anda belum lulus';
+							?>
 						</div>
 					</div>
 				</div>
@@ -262,14 +76,4 @@
 	</div>
 	<?php $this->load->view('siswa/_partials/footer.php') ?>
 </body>
-	<script>
-		$("#tb-rekomendasi").DataTable({
-			order: [[
-				1, 'desc'
-			]],
-			paging: false,
-			searching: false,
-			info: false
-		})
-	</script>
 </html>

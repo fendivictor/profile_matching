@@ -239,13 +239,40 @@
 								</thead>
 								<tbody>
 								<?php 
+									$sortingArray = [];
 									if ($siswa) {
-										foreach ($siswa as $s) {
-											$rangking = $this->penilaian_model->findRangking($s->id);
+										foreach ($siswa as $s => $val) {
+											$rangking = $this->penilaian_model->findRangking($val->id);
+											$sortingArray[$val->id] = $rangking;
+										}
+									}
 
+									arsort($sortingArray);
+
+									$rankArray = [];
+									$jumlah = 1;
+									if ($sortingArray) {
+										foreach ($sortingArray as $s => $v) {
+											$siswa = $this->siswa_model->find($s);
+											$rankArray[] = [
+												'id' => $s,
+												'nama' => $siswa->nama,
+												'rangking' => $v
+											];
+
+											$jumlah++;
+
+											if ($jumlah > $setting->jumlah_lolos) {
+												break;
+											}
+										}
+									}
+
+									if ($rankArray) {
+										foreach ($rankArray as $s => $val) {
 											echo '<tr>';
-											echo '<td>'.$s->nama.'</td>';
-											echo '<td class="text-center">'.$rangking.'</td>';
+											echo '<td>'.$val['nama'].'</td>';
+											echo '<td class="text-center">'.$val['rangking'].'</td>';
 											echo '</tr>';
 										}
 									}

@@ -7,6 +7,7 @@ class Siswa_model extends CI_Model
 	const SESSION_KEY = 'user_id';
 	const SESSION_NAME = 'username';
 	const SESSION_EMAIL = 'email';
+	const SESSION_NIS = 'nis';
 
 	public function get($condition = [])
 	{
@@ -56,9 +57,9 @@ class Siswa_model extends CI_Model
 		return $this->db->delete($this->_table, ['id' => $id]);
 	}
 
-	public function login($email, $password)
+	public function login($nis, $password)
 	{
-		$this->db->where('email', $email);
+		$this->db->where('nis', $nis);
 		$query = $this->db->get($this->_table);
 		$siswa = $query->row();
 
@@ -69,7 +70,7 @@ class Siswa_model extends CI_Model
 
 		// cek apakah passwordnya benar?
 		$checkPassword = $this->db->where([
-			'email' => $email,
+			'nis' => $nis,
 			'password' => md5($password),
 		])->get($this->_table)->row();
 		
@@ -81,7 +82,8 @@ class Siswa_model extends CI_Model
 		$this->session->set_userdata([
 			self::SESSION_KEY => $siswa->id,
 			self::SESSION_NAME => $siswa->nama,
-			self::SESSION_EMAIL => $siswa->email
+			self::SESSION_EMAIL => $siswa->email,
+			self::SESSION_NIS => $siswa->nis
 		]);
 
 		return $this->session->has_userdata(self::SESSION_KEY);
